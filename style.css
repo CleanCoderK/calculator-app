@@ -164,7 +164,7 @@ body{
 }
 
 .btn{
-  width: 100%;
+  width: 65px;
   height: 100%;
   font-size: inherit;
   color: var(--very-dark-grayish-blue);
