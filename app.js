@@ -120,10 +120,11 @@ function reset(){
 }
 
 function updateScreen(){
+
   if(variables[id]=== ''){
     display.innerText = 0;
   } else {
-    display.innerText = variables[id];
+  display.innerText = variables[id];
   }
 }
 
@@ -135,48 +136,47 @@ function del(){
 }
 
 function calculate(){
-  var res = eval(variables[0]+operator+variables[1]);
-  operator = '';
-  variables[1] = '';
-  variables[0] = res;
-  //keeping the result on variables[0]
+  //to remove final operators
+  let checkingLastIndex = /[\+\-\*\/]$/;
+  if(checkingLastIndex.test(variables[0])) {
+    variables[0] = variables[0].substr(0, variables[0].length-1);
+  }
+
+  var res = eval(variables[0]);
+  res = Number(res);
+  Number.isInteger(res) ?
+  variables[0] = res :
+  variables[0] = res.toFixed(5);
   id = 0;
   updateScreen();
 }
 
 selectedNumbers.forEach(button => {
-  button.addEventListener('click', ()=>{
+    button.addEventListener('click', ()=>{
 
-    const regexp = /^[+-]?[0-9]*([.][0-9]*)?$/;
+    //if you type / or * for the first time, zero will be inserted automatically
+    if(variables[id] === "" && button.innerText=== "/" ) {
+      variables[id] += "0";
+    }
 
-    if( regexp.test(variables[id]+button.innerText) ){
+    if(variables[id] === "" && button.innerText=== "*" ) {
+      variables[id] += "0";
+    }
+
+    let checkingOperator = /[\+\-\*\/]/;
+    let notToMakeDoubleOperator = /[\+\-\*\/]$/;
+
+    if(checkingOperator.test(button.innerText)) {
+      if(notToMakeDoubleOperator.test(variables[id])) {
+        //this will put only one operator. If you type + -, + will become -.
+        variables[id] = variables[id].substr(0, variables[id].length-1)+button.innerText;
+      } else {
+        variables[id] += button.innerText;
+      }
+    } else {
       variables[id] += button.innerText;
-      updateScreen();
-
     }
-  })
-})
-
-operatorBtn.forEach(button=>{
-  button.addEventListener('click',()=>{
-    if(variables[0]==='' && display.innerText !== '0'){
-      variables[0] = display.innerText;
-    }
-    id++;
-    switch(button.innerText){
-      case '+':
-      case '-':
-        if(variables[0]===''){
-          id--;
-          variables[0]+= '-';
-        }
-        //handling for -1-1 = -2;
-      case '/':
-        operator = button.innerText;
-        break;
-      case 'x':
-        operator = "*";
-    }
+    updateScreen();
   })
 })
 

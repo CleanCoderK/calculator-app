@@ -134,6 +134,7 @@ body{
 }
 
 .display{
+
   height: 100px;
   background-color: var(--very-dark-desaturated-blue-screen);
   border-radius: 5px;
@@ -164,11 +165,13 @@ body{
 }
 
 .btn{
-  width: 100%;
+  width: 65px;
   height: 100%;
   font-size: inherit;
   color: var(--very-dark-grayish-blue);
   box-shadow: 0 5px var(--grayish-orange-shadow);
+  border-radius: 5px;
+  border-style: none;
 }
 
 .btn:hover{
