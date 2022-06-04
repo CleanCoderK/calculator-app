@@ -134,7 +134,7 @@ body{
 }
 
 .display{
-
+  width: 20rem;
   height: 100px;
   background-color: var(--very-dark-desaturated-blue-screen);
   border-radius: 5px;
@@ -142,9 +142,11 @@ body{
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  padding-right: 1rem;
   color: var(--whites);
   font-size: 2rem;
+  text-align: right;
+  border: none;
+  padding: 0 2rem;
 }
 
 .calculator{

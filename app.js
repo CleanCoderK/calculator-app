@@ -120,11 +120,10 @@ function reset(){
 }
 
 function updateScreen(){
-
   if(variables[id]=== ''){
-    display.innerText = 0;
-  } else {
-  display.innerText = variables[id];
+    display.value = 0;
+  } else{
+    display.value = variables[id];
   }
 }
 
@@ -146,7 +145,7 @@ function calculate(){
   res = Number(res);
   Number.isInteger(res) ?
   variables[0] = res :
-  variables[0] = res.toFixed(5);
+  variables[0] = parseFloat(res.toFixed(5));
   id = 0;
   updateScreen();
 }
@@ -173,6 +172,13 @@ selectedNumbers.forEach(button => {
       } else {
         variables[id] += button.innerText;
       }
+    } else if(button.innerText === "0"){
+        //this will solve binary porblem such as 012-1=9
+        if(variables[id]=== "0") {
+          variables[id] = variables[id].substr(0, variables[id].length-1)+button.innerText;
+        } else if(variables[id].length>0){
+          variables[id] += button.innerText;
+        }
     } else {
       variables[id] += button.innerText;
     }
